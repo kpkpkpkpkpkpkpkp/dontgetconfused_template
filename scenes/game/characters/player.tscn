@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/game/characters/base_guy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/game/characters/player.gd" type="Script" id=2]
+[ext_resource path="res://assets/audio/pleasing-bell.wav" type="AudioStream" id=3]
+[ext_resource path="res://scenes/game/characters/note/music_note.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "sing"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "song"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BalloonSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0 ]
+}
+
+[node name="Player" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+note_scene = ExtResource( 4 )
+
+[node name="FloatAnimationPlayer" parent="." index="2"]
+anims/sing = SubResource( 1 )
+
+[node name="ChimeSFX" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 3 )
+volume_db = 3.5

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/_debug/info.gd" type="Script" id=1]
+
+[node name="InfoLayer" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="InfoBox" type="VBoxContainer" parent="."]
+
+[node name="Floating" type="Label" parent="InfoBox"]
+margin_right = 41.0
+margin_bottom = 14.0
+text = "heyy"
+
+[node name="Velocity" type="Label" parent="InfoBox"]
+margin_top = 18.0
+margin_right = 41.0
+margin_bottom = 32.0
+text = "woahh"

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/game/levels/madguy_follow.gd" type="Script" id=1]
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 320, 69, 0, 0, 0, 0, 497, 87, 0, 0, 0, 0, 524, 158, 0, 0, 0, 0, 324, 146, 0, 0, 0, 0, 160, 157, 0, 0, 0, 0, 81, 136, 0, 0, 0, 0, 96, 86, 0, 0, 0, 0, 320, 69 )
+}
+
+[node name="FloatPath" type="Path2D"]
+curve = SubResource( 5 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2( 320, 69 )
+rotation = 0.101346
+rotate = false
+script = ExtResource( 1 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+update_rotation = false
+update_scale = false

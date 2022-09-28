@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/menu/main_menu.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/main_menu.png" type="Texture" id=2]
+[ext_resource path="res://scenes/game/game.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/audio/Menu2A.wav" type="AudioStream" id=4]
+
+[node name="Title" type="TextureRect"]
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+game_scene = ExtResource( 3 )
+
+[node name="StartSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -9.724

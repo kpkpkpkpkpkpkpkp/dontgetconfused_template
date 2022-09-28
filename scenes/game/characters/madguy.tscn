@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/game/characters/player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/audio/snore.ogg" type="AudioStream" id=2]
+[ext_resource path="res://scenes/game/characters/madguy.gd" type="Script" id=3]
+
+[node name="Madguy" instance=ExtResource( 1 )]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 3 )
+
+[node name="BalloonSprite" parent="." index="0"]
+region_rect = Rect2( 0, 128, 128, 128 )
+
+[node name="SnoreSFX" type="AudioStreamPlayer" parent="." index="3"]
+stream = ExtResource( 2 )

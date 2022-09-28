@@ -1,0 +1,100 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scenes/game/characters/madguy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/game/levels/base_level.gd" type="Script" id=2]
+[ext_resource path="res://scenes/game/levels/animations/blink.tres" type="Animation" id=3]
+[ext_resource path="res://scenes/game/levels/transition_area.gd" type="Script" id=4]
+[ext_resource path="res://assets/sprites/bg.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/arrow.png" type="Texture" id=6]
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ArrowHint:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 328.5, 13.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13, 187.5 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ArrowPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/blink = ExtResource( 3 )
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 640, 360 )
+
+[node name="ArrowHint" type="Sprite" parent="."]
+visible = false
+position = Vector2( 318, 54 )
+texture = ExtResource( 6 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Madguy" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 413, 135 )
+
+[node name="TransitionAreas" type="Node2D" parent="."]
+
+[node name="TransitionUp" type="Area2D" parent="TransitionAreas"]
+collision_layer = 8
+script = ExtResource( 4 )
+transition_scene = "res://scenes/game/levels/rooms/clouds.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/TransitionUp"]
+position = Vector2( 318.5, 0 )
+shape = SubResource( 1 )
+
+[node name="BarrierUp" type="StaticBody2D" parent="TransitionAreas"]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierUp"]
+position = Vector2( 318.5, 0.5 )
+shape = SubResource( 1 )
+
+[node name="BarrierLeft" type="StaticBody2D" parent="TransitionAreas"]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierLeft"]
+position = Vector2( 3, 177.5 )
+shape = SubResource( 2 )
+
+[node name="BarrierRight" type="StaticBody2D" parent="TransitionAreas"]
+position = Vector2( 632, 0 )
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierRight"]
+position = Vector2( 3, 177.5 )
+shape = SubResource( 2 )
+
+[node name="BarrierDown" type="StaticBody2D" parent="TransitionAreas"]
+position = Vector2( 0, 357 )
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierDown"]
+position = Vector2( 318.5, 0 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="TransitionAreas/TransitionUp" to="TransitionAreas/TransitionUp" method="_on_body_entered"]
+[connection signal="transition_entered" from="TransitionAreas/TransitionUp" to="." method="_on_transition_entered" flags=6]

@@ -1,0 +1,143 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scenes/game/characters/madguy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/game/levels/base_level.gd" type="Script" id=2]
+[ext_resource path="res://scenes/game/levels/transition_area.gd" type="Script" id=3]
+[ext_resource path="res://assets/sprites/bg.png" type="Texture" id=4]
+[ext_resource path="res://scenes/game/levels/animations/blink.tres" type="Animation" id=5]
+[ext_resource path="res://assets/sprites/arrow.png" type="Texture" id=6]
+[ext_resource path="res://scenes/game/levels/FloatPath.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Animation" id=3]
+resource_name = "return"
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 328.5, 12.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 13, 219 )
+
+[sub_resource type="Curve2D" id=4]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 574, 48, 0, 0, 0, 0, 506, 25, 0, 0, 0, 0, 494, 113, 0, 0, 0, 0, 464, 33, 0, 0, 0, 0, 422, 136, 0, 0, 0, 0, 381, 87, 0, 0, 0, 0, 575, 132, 0, 0, 0, 0, 574, 48 )
+}
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 41, 36, 0, 0, 0, 0, 256, 33, 0, 0, 0, 0, 105, 47, 0, 0, 0, 0, 233, 59, 0, 0, 0, 0, 47, 77, 0, 0, 0, 0, 128, 88, 0, 0, 0, 0, 37, 116, 0, 0, 0, 0, 317, 112, 0, 0, 0, 0, 158, 142, 0, 0, 0, 0, 250, 96, 0, 0, 0, 0, 171, 90, 0, 0, 0, 0, 367, 56, 0, 0, 0, 0, 266, 57, 0, 0, 0, 0, 143, 97, 0, 0, 0, 0, 85, 47, 0, 0, 0, 0, 41, 36 )
+}
+
+[sub_resource type="Curve2D" id=6]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 109, 234, 0, 0, 0, 0, 109, 157, 0, 0, 0, 0, 149, 286, 0, 0, 0, 0, 163, 170, 0, 0, 0, 0, 211, 217, 0, 0, 0, 0, 256, 159, 0, 0, 0, 0, 293, 309, 0, 0, 0, 0, 411, 163, 0, 0, 0, 0, 439, 221, 0, 0, 0, 0, 487, 167, 0, 0, 0, 0, 403, 281, 0, 0, 0, 0, 334, 228, 0, 0, 0, 0, 219, 289, 0, 0, 0, 0, 174, 221, 0, 0, 0, 0, 83, 251, 0, 0, 0, 0, 109, 234 )
+}
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ArrowPlayer" type="AnimationPlayer" parent="."]
+anims/blink = ExtResource( 5 )
+anims/return = SubResource( 3 )
+
+[node name="Background" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 1280, 0, 640, 360 )
+
+[node name="ArrowHint" type="Sprite" parent="."]
+visible = false
+position = Vector2( 316, 63 )
+texture = ExtResource( 6 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Madguy" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 574, 48 )
+
+[node name="Madguy2" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 41, 36 )
+
+[node name="Madguy3" parent="Enemies" instance=ExtResource( 1 )]
+position = Vector2( 109, 234 )
+
+[node name="TransitionAreas" type="Node2D" parent="."]
+
+[node name="TransitionUp" type="Area2D" parent="TransitionAreas"]
+collision_layer = 8
+script = ExtResource( 3 )
+transition_scene = "res://scenes/game/levels/rooms/dusk.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/TransitionUp"]
+position = Vector2( 318.5, 0 )
+shape = SubResource( 1 )
+
+[node name="BarrierUp" type="StaticBody2D" parent="TransitionAreas"]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierUp"]
+position = Vector2( 318.5, 1.5 )
+rotation = 3.14159
+shape = SubResource( 1 )
+
+[node name="BarrierLeft" type="StaticBody2D" parent="TransitionAreas"]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierLeft"]
+position = Vector2( 3, 209 )
+shape = SubResource( 2 )
+
+[node name="BarrierRight" type="StaticBody2D" parent="TransitionAreas"]
+position = Vector2( 632, 0 )
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierRight"]
+position = Vector2( 3, 209 )
+shape = SubResource( 2 )
+
+[node name="BarrierDown" type="StaticBody2D" parent="TransitionAreas"]
+position = Vector2( 0, 438 )
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionAreas/BarrierDown"]
+position = Vector2( 318.5, 0 )
+rotation = 3.14159
+shape = SubResource( 1 )
+
+[node name="FloatPath" parent="." instance=ExtResource( 7 )]
+curve = SubResource( 4 )
+
+[node name="PathFollow2D" parent="FloatPath" index="0"]
+position = Vector2( 574, 48 )
+
+[node name="RemoteTransform2D" parent="FloatPath/PathFollow2D" index="0"]
+remote_path = NodePath("../../../Enemies/Madguy")
+
+[node name="FloatPath2" parent="." instance=ExtResource( 7 )]
+curve = SubResource( 5 )
+
+[node name="PathFollow2D" parent="FloatPath2" index="0"]
+position = Vector2( 41, 36 )
+
+[node name="RemoteTransform2D" parent="FloatPath2/PathFollow2D" index="0"]
+remote_path = NodePath("../../../Enemies/Madguy2")
+
+[node name="FloatPath3" parent="." instance=ExtResource( 7 )]
+curve = SubResource( 6 )
+
+[node name="PathFollow2D" parent="FloatPath3" index="0"]
+position = Vector2( 109, 234 )
+
+[node name="RemoteTransform2D" parent="FloatPath3/PathFollow2D" index="0"]
+remote_path = NodePath("../../../Enemies/Madguy3")
+
+[connection signal="body_entered" from="TransitionAreas/TransitionUp" to="TransitionAreas/TransitionUp" method="_on_body_entered"]
+[connection signal="transition_entered" from="TransitionAreas/TransitionUp" to="." method="_on_transition_entered" flags=6]
+
+[editable path="FloatPath"]
+[editable path="FloatPath2"]
+[editable path="FloatPath3"]
