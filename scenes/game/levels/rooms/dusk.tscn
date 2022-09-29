@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/game/levels/transition_area.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/bg.png" type="Texture" id=4]
 [ext_resource path="res://scenes/game/levels/animations/blink.tres" type="Animation" id=5]
-[ext_resource path="res://assets/sprites/arrow.png" type="Texture" id=6]
+[ext_resource path="res://assets/arrow.png" type="Texture" id=6]
 [ext_resource path="res://scenes/game/levels/FloatPath.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=3]
