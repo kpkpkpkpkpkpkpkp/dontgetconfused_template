@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/game/levels/base_level.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/icon.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50, 50 )
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 1 )
+path_to_scene = "res://scenes/game/levels/rooms/level_1.tscn"
+
+[node name="Background" type="Sprite" parent="."]
+modulate = Color( 1, 0.0509804, 0.0509804, 1 )
+scale = Vector2( 15.9531, 9.35938 )
+texture = ExtResource( 2 )
+
+[node name="TransitionArea" type="Area2D" parent="."]
+position = Vector2( -339, 3 )
+
+[node name="TransitionAreaSprite" type="Sprite" parent="TransitionArea"]
+modulate = Color( 0.847059, 0, 0.996078, 1 )
+position = Vector2( 0.500004, 1.43051e-06 )
+scale = Vector2( 1.48438, 1.5 )
+texture = ExtResource( 2 )
+
+[node name="TransitionCollisionShape" type="CollisionShape2D" parent="TransitionArea"]
+shape = SubResource( 1 )
+
+[node name="Label" type="Label" parent="TransitionArea"]
+margin_left = -43.0
+margin_top = -69.0
+margin_right = 52.0
+margin_bottom = -55.0
+text = "GO TO LEVEL 1"
+align = 1
+
+[node name="TransitionArea2" type="Area2D" parent="."]
+position = Vector2( 370, 2 )
+
+[node name="TransitionAreaSprite" type="Sprite" parent="TransitionArea2"]
+modulate = Color( 0.188235, 1, 0.141176, 1 )
+position = Vector2( 0.500004, 1.43051e-06 )
+scale = Vector2( 1.48438, 1.5 )
+texture = ExtResource( 2 )
+
+[node name="TransitionCollisionShape" type="CollisionShape2D" parent="TransitionArea2"]
+shape = SubResource( 1 )
+
+[node name="Label" type="Label" parent="TransitionArea2"]
+margin_left = -19.0
+margin_top = -69.0
+margin_right = 21.0
+margin_bottom = -55.0
+text = "QUIT!"
+align = 1
+
+[connection signal="body_entered" from="TransitionArea" to="." method="_on_transition_entered"]
+[connection signal="body_entered" from="TransitionArea2" to="." method="_on_quit_entered"]

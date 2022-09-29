@@ -1,15 +1,27 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/menu/main_menu.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/main_menu.png" type="Texture" id=2]
-[ext_resource path="res://scenes/game/game.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/audio/Menu2A.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/audio/Sfx/SFXStartGame.wav" type="AudioStream" id=2]
 
-[node name="Title" type="TextureRect"]
-texture = ExtResource( 2 )
+[node name="Title" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.290196, 0.498039, 0.552941, 1 )
 script = ExtResource( 1 )
-game_scene = ExtResource( 3 )
 
 [node name="StartSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource( 2 )
 volume_db = -9.724
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -6.0
+margin_top = -10.0
+margin_right = 6.0
+margin_bottom = 10.0
+text = "Start Game"
+
+[connection signal="pressed" from="Button" to="." method="start_game"]

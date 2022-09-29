@@ -7,7 +7,6 @@ signal end_game
 
 export var start_scene:PackedScene
 var current_level:Node2D
-const LEVEL_HEIGHT = 340
 
 #This runs as soon as an instance of "game.tscn" enters the scene tree, which means whenever you add it with "add_child()"
 func _ready():
@@ -25,21 +24,12 @@ func _on_goto_room(scene:PackedScene):
 	
 	var new_level=scene.instance()
 	$Levels.add_child(new_level)
-	#Offset this level to our position + or - its width or height 
-	#in the direction we want it to go
-	new_level.position=current_level.position+(Vector2.UP*LEVEL_HEIGHT)
+
 	new_level.connect("goto_room",self,"_on_goto_room")
 	new_level.connect("goto_main",self,"_on_goto_main")
-	var tw=get_tree().create_tween()
-	tw.tween_property($WorldCam,"position",new_level.position,1)
-	
-	tw.tween_callback(current_level,'queue_free')
+	current_level.queue_free()
 	current_level=new_level
 	
 func _on_goto_main():
 	emit_signal("end_game")
 	
-func _input(event):
-	if event.is_action_pressed("ui_pause"):
-		get_tree().paused=!get_tree().paused
-		$PauseLayer.visible=get_tree().paused
