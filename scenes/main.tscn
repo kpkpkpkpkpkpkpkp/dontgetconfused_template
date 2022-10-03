@@ -1,57 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/menu/main_menu.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/game/game_world.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/main.gd" type="Script" id=3]
-
-[sub_resource type="Animation" id=1]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasModulate:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=5]
-resource_name = "fade_in"
-tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasModulate:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasModulate:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
-}
 
 [node name="Main" type="Node"]
 script = ExtResource( 3 )
-game_scene = ExtResource( 2 )
+game_scene = "res://scenes/game/game_world.tscn"
 
 [node name="Title" parent="." instance=ExtResource( 1 )]
 
@@ -59,12 +13,5 @@ game_scene = ExtResource( 2 )
 pause_mode = 2
 volume_db = -13.569
 autoplay = true
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-
-[node name="ScreenFader" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 1 )
-anims/fade_in = SubResource( 5 )
-anims/fade_out = SubResource( 2 )
 
 [connection signal="starting" from="Title" to="." method="_on_Game_starting"]

@@ -13,6 +13,10 @@ config_version=4
 config/name="DontGetConfused"
 run/main_scene="res://scenes/main.tscn"
 
+[autoload]
+
+ScreenFader="*res://src/ScreenFader.tscn"
+
 [debug]
 
 gdscript/warnings/unused_argument=false
